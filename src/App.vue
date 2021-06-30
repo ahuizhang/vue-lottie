@@ -3,12 +3,12 @@
 </template>
 
 <script>
-import HelloLottie from './components/HelloLottie.vue'
+import HelloLottie from "./components/HelloLottie.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloLottie
-  }
-}
+    HelloLottie,
+  },
+};
 </script>

@@ -1,53 +1,60 @@
 <template>
+  <h1>shapihuangdeshi</h1>
   <div class="container">
-    <div ref="infinityLoading"></div>
-    <div ref="loadingColourDots"></div>
-    <div ref="onlineShopping"></div>
-    <div ref="sheep"></div>
-    <div ref="socket"></div>
-    <div ref="wave"></div>
+    <div v-for="(item, index) in DomRef" :key="index" :ref="setRef" />
   </div>
 </template>
-
 <script>
+import { ref, onMounted } from "vue";
 import lottie from "lottie-web";
-import infinityLoading from "../assets/infinity-loading.json";
-import loadingColourDots from "../assets/loading-colour-dots.json";
-import onlineShopping from "../assets/online-shopping.json";
-import sheep from "../assets/sheep.json";
-import socket from "../assets/socket.json";
-import wave from "../assets/wave.json";
+import infinityLoading from "../assets/lottie-json/infinity-loading.json";
+import loadingColourDots from "../assets/lottie-json/loading-colour-dots.json";
+import onlineShopping from "../assets/lottie-json/online-shopping.json";
+import sheep from "../assets/lottie-json/sheep.json";
+import socket from "../assets/lottie-json/socket.json";
+import wave from "../assets/lottie-json/wave.json";
 export default {
-  name: "HelloWorld",
-  data() {
-    return {
-      allJson: {
-        infinityLoading,
-        loadingColourDots,
-        onlineShopping,
-        sheep,
-        socket,
-        wave,
-      },
+  name: "HelloLottie",
+  setup() {
+    const DomRef = ref([
+      infinityLoading,
+      loadingColourDots,
+      onlineShopping,
+      sheep,
+      socket,
+      wave,
+    ]);
+    const myListRef = ref([]);
+    const setRef = (el) => {
+      myListRef.value.push(el);
     };
-  },
-  mounted() {
-    for (const key in this.allJson) {
-      if (Object.hasOwnProperty.call(this.allJson, key)) {
-        const element = this.allJson[key];
+
+    const lottieMethod = () => {
+      DomRef.value.forEach((element, index) => {
         lottie.loadAnimation({
-          container: this.$refs[key],
+          container: myListRef.value[index],
           renderer: "svg",
           loop: true,
           autoplay: true,
           animationData: element,
         });
-      }
-    }
+      });
+    };
+    onMounted(() => {
+      lottieMethod();
+    });
+    return {
+      DomRef,
+      setRef,
+    };
   },
 };
 </script>
 <style scoped>
+h1 {
+  margin: 100px 0;
+  text-align: center;
+}
 .container {
   display: flex;
   justify-content: center;
